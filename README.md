@@ -1,126 +1,124 @@
 # Kube-News
 
-Uma aplicação de notícias desenvolvida em NodeJS para demonstrar o uso de containers e Kubernetes.
+A news application developed in NodeJS to demonstrate the use of containers and Kubernetes.
 
-## 📋 Sobre o Projeto
+## 📋 About the Project
 
-O projeto Kube-News é uma aplicação web simples desenvolvida em Node.js, projetada como exemplo para demonstrar o uso de contêineres. É um portal de notícias que permite criar, visualizar e gerenciar artigos através de uma interface web.
+The Kube-News project is a simple web application developed in Node.js, designed as an example to demonstrate the use of containers. It's a news portal that allows creating, viewing, and managing articles through a web interface.
 
-### 🚀 Funcionalidades Principais
+### 🚀 Main Features
 
-- Listagem de notícias na página inicial
-- Criação de novas notícias através de formulário
-- Visualização detalhada de cada notícia
-- API REST para inserção em massa de notícias
-- Endpoints de health check para monitoramento
-- Coleta de métricas para Prometheus
+- News listing on the homepage
+- Creating new news through forms
+- Detailed view of each news article
+- REST API for bulk news insertion
+- Health check endpoints for monitoring
+- Metrics collection for Prometheus
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
-- **Backend**: Node.js com Express.js
-- **Frontend**: EJS (Embedded JavaScript) como motor de templates
-- **Banco de Dados**: PostgreSQL com Sequelize ORM
-- **Monitoramento**: Prometheus (via express-prom-bundle)
+- **Backend**: Node.js with Express.js
+- **Frontend**: EJS (Embedded JavaScript) as template engine
+- **Database**: PostgreSQL with Sequelize ORM
+- **Monitoring**: Prometheus (via express-prom-bundle)
 
-## 📦 Estrutura do Projeto
+## 📦 Project Structure
 
 ```
 /
-├── src/                      # Código-fonte principal
-│   ├── models/               # Modelos de dados
-│   │   └── post.js           # Definição do modelo Post
-│   ├── views/                # Templates EJS
-│   │   ├── partial/          # Componentes parciais (header, footer)
-│   │   ├── edit-news.ejs     # Formulário de edição
-│   │   ├── index.ejs         # Página principal
-│   │   └── view-news.ejs     # Visualização de notícia
-│   ├── static/               # Arquivos estáticos (CSS, imagens)
-│   ├── middleware.js         # Middlewares personalizados
-│   ├── server.js             # Ponto de entrada da aplicação
-│   ├── system-life.js        # Endpoints de health check
-│   └── package.json          # Dependências
-├── popula-dados.http         # Arquivo para popular o banco com dados de exemplo
-└── README.md                 # Documentação
+├── src/                      # Main source code
+│   ├── models/               # Data models
+│   │   └── post.js           # Post model definition
+│   ├── views/                # EJS templates
+│   │   ├── partial/          # Partial components (header, footer)
+│   │   ├── edit-news.ejs     # Edit form
+│   │   ├── index.ejs         # Main page
+│   │   └── view-news.ejs     # News view
+│   ├── static/               # Static files (CSS, images)
+│   ├── middleware.js         # Custom middlewares
+│   ├── server.js             # Application entry point
+│   ├── system-life.js        # Health check endpoints
+│   └── package.json          # Dependencies
+├── popula-dados.http         # File to populate database with sample data
+└── README.md                 # Documentation
 ```
 
-## 🔧 Configuração
+## 🔧 Configuration
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js
 - PostgreSQL
-- Docker (opcional, para containerização)
-- Kubernetes (opcional, para orquestração)
+- Docker (optional, for containerization)
+- Kubernetes (optional, for orchestration)
 
-### Variáveis de Ambiente
+### Environment Variables
 
-Para configurar a aplicação, defina as seguintes variáveis de ambiente:
+To configure the application, set the following environment variables:
 
-| Variável | Descrição | Valor Padrão |
-|----------|-----------|--------------|
-| DB_DATABASE | Nome do banco de dados | kubedevnews |
-| DB_USERNAME | Usuário do banco de dados | kubedevnews |
-| DB_PASSWORD | Senha do usuário | Pg#123 |
-| DB_HOST | Endereço do banco de dados | localhost |
-| DB_PORT | Porta do banco de dados | 5432 |
-| DB_SSL_REQUIRE | Habilitar SSL para conexão | false |
+| Variable | Description | Default Value |
+|----------|-------------|---------------|
+| DB_DATABASE | Database name | kubedevnews |
+| DB_USERNAME | Database user | kubedevnews |
+| DB_PASSWORD | User password | Pg#123 |
+| DB_HOST | Database address | localhost |
+| DB_PORT | Database port | 5432 |
+| DB_SSL_REQUIRE | Enable SSL for connection | false |
 
-## 🚀 Instalação e Execução
+## 🚀 Installation and Execution
 
-### Execução Local
+### Local Execution
 
-1. Clone o repositório
-2. Instale as dependências:
+1. Clone the repository
+2. Install dependencies:
    ```bash
    cd src
    npm install
    ```
-3. Configure as variáveis de ambiente necessárias
-4. Inicie a aplicação:
+3. Configure the necessary environment variables
+4. Start the application:
    ```bash
    npm start
    ```
-5. Acesse a aplicação em [http://localhost:8080](http://localhost:8080)
+5. Access the application at [http://localhost:8080](http://localhost:8080)
 
-### População de Dados de Exemplo
+### Sample Data Population
 
-Utilize o arquivo `popula-dados.http` para inserir notícias de exemplo:
+Use the `popula-dados.http` file to insert sample news:
 
 ```bash
-# Com uma ferramenta como o REST Client no VS Code ou curl
+# With a tool like REST Client in VS Code or curl
 POST http://localhost:8080/api/post
 Content-Type: application/json
-# Conteúdo do arquivo popula-dados.http
+# Content from popula-dados.http file
 ```
 
-## 📊 Monitoramento e Health Checks
+## 📊 Monitoring and Health Checks
 
-A aplicação disponibiliza endpoints para monitoramento e também recursos para simular cenários de falha, muito úteis para testar a resiliência em ambientes Kubernetes:
+The application provides endpoints for monitoring and also resources to simulate failure scenarios, very useful for testing resilience in Kubernetes environments:
 
-### Endpoints de Monitoramento
-- `/health` - Verifica o estado atual da aplicação (retorna status da aplicação e hostname da máquina)
-- `/ready` - Verifica se a aplicação está pronta para receber tráfego
-- `/metrics` - Métricas do Prometheus (geradas pelo express-prom-bundle)
+### Monitoring Endpoints
+- `/health` - Checks the current application state (returns application status and machine hostname)
+- `/ready` - Checks if the application is ready to receive traffic
+- `/metrics` - Prometheus metrics (generated by express-prom-bundle)
 
-### Simulação de Falhas (Chaos Engineering)
-- `/unhealth` - (PUT) Altera o estado da aplicação para não saudável. Todas as requisições subsequentes receberão status code 500.
-- `/unreadyfor/:seconds` - (PUT) Simula indisponibilidade temporária por um número específico de segundos. Durante este período, o endpoint `/ready` retornará status code 500.
+### Failure Simulation (Chaos Engineering)
+- `/unhealth` - (PUT) Changes the application state to unhealthy. All subsequent requests will receive status code 500.
+- `/unreadyfor/:seconds` - (PUT) Simulates temporary unavailability for a specific number of seconds. During this period, the `/ready` endpoint will return status code 500.
 
-Estes recursos de simulação de falhas são extremamente úteis para testar:
-- Comportamento de probes de liveness e readiness no Kubernetes
-- Políticas de retry e circuit breaker
-- Mecanismos de failover
-- Resiliência geral da sua infraestrutura
+These failure simulation resources are extremely useful for testing:
+- Behavior of liveness and readiness probes in Kubernetes
+- Retry and circuit breaker policies
+- Failover mechanisms
+- General infrastructure resilience
 
-## 🔒 Modelo de Dados
+## 🔒 Data Model
 
-O projeto utiliza um único modelo `Post` com os seguintes campos:
+The project uses a single `Post` model with the following fields:
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| title | String | Título da notícia (limite: 30 caracteres) |
-| summary | String | Resumo da notícia (limite: 50 caracteres) |
-| content | String | Conteúdo completo (limite: 2000 caracteres) |
-| publishDate | Date | Data de publicação |
-
-
+| Field | Type | Description |
+|-------|------|-------------|
+| title | String | News title (limit: 30 characters) |
+| summary | String | News summary (limit: 50 characters) |
+| content | String | Full content (limit: 2000 characters) |
+| publishDate | Date | Publication date |
